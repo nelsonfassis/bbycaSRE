@@ -3,7 +3,7 @@ FROM node:8
 WORKDIR /app
 COPY . .
 RUN npm install
-EXPOSE 8080
+EXPOSE 8000
 CMD [ "node", "bestbuy.ca.js" ]
 #CMD [ "/bin/bash"]
 

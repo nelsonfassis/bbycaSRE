@@ -15,7 +15,7 @@ pipeline {
 
         stage('Start container') {
             steps {
-                sh 'docker run -d -e PORT=$port --name bestbuy-$ENV bestbuy-awesome-container -p $port:$port'
+                sh 'docker run -d -e PORT=$PORT --name bestbuy-$ENV bestbuy-awesome-container -p $PORT:$PORT'
             }
         }
     }
