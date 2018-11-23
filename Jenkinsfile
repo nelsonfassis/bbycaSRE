@@ -10,10 +10,10 @@ pipeline {
             steps {
                 script {
                     withEnv(['ENV=DEV','PORT=8091']) {
-                        sh 'echo "Testing ENV env \n\n"'
+                        sh 'echo "Testing $ENV env on port $PORT \n\n"'
                         sh 'node bestbuy.ca.js & '
 
-                        String RESULT = sh(script: 'curl -s -o /dev/null -w "%{http_code}\n" localhost:8000/', returnStdout: true)
+                        String RESULT = sh(script: 'curl -s -o /dev/null -w "%{http_code}\n" localhost:$PORT/', returnStdout: true)
                         echo "Status Code $RESULT"
 
                         if ( RESULT.trim() == '200') {
