@@ -6,7 +6,7 @@ pipeline {
     }
     agent any
     stages {
-        stage('Test') {
+        stage('NodeJS Integrity Test') {
             steps {
                 script {
                     withEnv(['ENV=DEV','PORT=8091']) {
