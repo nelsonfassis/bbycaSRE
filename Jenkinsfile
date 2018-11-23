@@ -40,7 +40,7 @@ pipeline {
             echo "Pushing image to DockerHub"
             script {
               docker.build registry + ":$BUILD_NUMBER"
-              docker.withRegistry( ‘’, registryCredential ) {
+              docker.withRegistry( '', registryCredential ) {
             dockerImage.push()
               }
             }
