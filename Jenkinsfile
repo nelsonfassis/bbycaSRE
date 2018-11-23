@@ -18,11 +18,11 @@ pipeline {
 
                         if ( RESULT.trim() == '200') {
                             echo 'Test succeeded'
-                            sh 'killall node'
+                            sh 'pkill node'
                         } else {
                             echo "Status Code FAILED $RESULT"
                             echo 'Test failed'
-                            sh 'killall node'
+                            sh 'pkill node'
                             sh 'exit 1 '
                         }
                     }
