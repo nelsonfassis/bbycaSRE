@@ -2,6 +2,7 @@ pipeline {
     environment {
         registry = "nelsonfassis/operations"
         registryCredential = 'dockerhub-credentials'
+        dockerImage = ''
     }
     agent any
     stages {
@@ -9,8 +10,8 @@ pipeline {
             steps {
                 script {
                     withEnv(['ENV=DEV','PORT=8091']) {
-                        sh "printf 'Testing DEV env \n\n'"
-                        sh 'node bestbuy.ca.js &'
+                        sh 'echo "Testing ENV env \n\n"'
+                        sh 'node bestbuy.ca.js & '
 
                         String RESULT = sh(script: 'curl -s -o /dev/null -w "%{http_code}\n" localhost:8000/', returnStdout: true)
                         echo "Status Code $RESULT"
@@ -29,19 +30,13 @@ pipeline {
             }
         }
 
-        stage('Build Image') {
-            steps {
-                sh 'docker build -t bestbuy-awesome-container .'
-            }
-        }
-
         stage('Push Image to DockerHub'){
           steps {
             echo "Pushing image to DockerHub"
             script {
-              docker.build registry + ":$BUILD_NUMBER"
+              dockerImage = docker.build registry + ":$BUILD_NUMBER"
               docker.withRegistry( '', registryCredential ) {
-            dockerImage.push()
+                dockerImage.push()
               }
             }
           }
@@ -50,7 +45,7 @@ pipeline {
         stage('Start container') {
             steps {
                 sh 'docker stop bestbuy-$ENV || true && docker rm bestbuy-$ENV || true'
-                sh 'docker run --restart=always -d -e PORT=$PORT -e ENV=$ENV -p $PORT:$PORT --name bestbuy-$ENV bestbuy-awesome-container '
+                sh 'docker run --restart=always -d -e PORT=$PORT -e ENV=$ENV -p $PORT:$PORT --name bestbuy-$ENV $registry:$BUILD_NUMBER '
             }
         }
     }
