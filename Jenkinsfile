@@ -44,7 +44,8 @@ pipeline {
 
         stage('Update Reverse Proxy') {
             steps {
-                sh "sed -i 's/localhost.*/localhost:$PORT;/g' /usr/local/nginx/sites-enabled/$ENV"
+                sh "sudo sed -i 's/localhost.*/localhost:$PORT;/g' /usr/local/nginx/sites-enabled/$ENV"
+                sh "sudo nginx -s reload"
             }
         }
 
