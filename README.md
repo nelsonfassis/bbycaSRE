@@ -24,6 +24,8 @@ It would also be possible (and it actually will work) to use instance ports to a
 
 Most of the tests were firstly made using a local Virtual Machine on my workstation, to reduce the cost of instance running on cloud and for better performance (localhost, extra memory and CPU made testing easier).
 
+Since there would be a reverse proxy to friendly access all the applications, I decided to use certbot to make them available via HTTPS with a redirect from HTTP requests.
+
 
 ## **Jenkins Workflow**
 
@@ -32,14 +34,14 @@ Most of the tests were firstly made using a local Virtual Machine on my workstat
 - If the check returns a 200 (OK) status code, it will pkill the NodeJS process and continue to the next step, else, it will pkill the process (or try, in case it failed to startup) and exit the pipeline.
 - In the second step, considering the application itself is healthy, it will build the Docker image from a Dockerfile and push it to the Docker Hub repository with the TAG being the same as the build number, which is an incremental number and would avoid erasing older versions and preventing rollbacks.
 - In the third step, it will update the nginx configs for the reverse proxy to pass the requests to the container port defined before building the deployment, so even if you want to deploy that environment to a different port, it will still be accessible from its FQDN.
-- In the fourth and last step, it will stop and remove the previous container (if it existed) and create a new one from the new image uploded to the Docker Hub.
+- In the fourth and last step, it will stop and remove the previous container (if it existed) and create a new one from the new image uploded to the Docker Hub
 
 ![Pipeline diagram](Workflow.png)
 
 
 ## **Reference**
 
-The whole assignment was made consulting documentation from the internet and previous projects for reference.
+The assignment was made consulting online documentation and previous projects for reference.
 
 - **NodeJS**
   - https://www.vultr.com/docs/installing-nodejs-and-express-on-centos
@@ -50,6 +52,8 @@ The whole assignment was made consulting documentation from the internet and pre
   - https://github.com/nelsonfassis/bbycaSRE/commits/master
 - **DockerHub Repo**
   - https://hub.docker.com/r/nelsonfassis/operations/
+- **Certbot**
+  - https://certbot.eff.org/lets-encrypt/centosrhel7-nginx
 
 - **AWS Web Instance**
   - FQDN: [aws.nelsonfassis.com](http://aws.nelsonfassis.com), [prod.nelsonfassis.com](http://prod.nelsonfassis.com), [test.nelsonfassis.com](http://test.nelsonfassis.com), [dr.nelsonfassis.com](http://dr.nelsonfassis.com), [dev.nelsonfassis.com](http://dev.nelsonfassis.com)
