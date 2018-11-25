@@ -55,7 +55,7 @@ The whole assignment was made consulting documentation from the internet and pre
   - FQDN: [aws.nelsonfassis.com](http://aws.nelsonfassis.com), [prod.nelsonfassis.com](http://prod.nelsonfassis.com), [test.nelsonfassis.com](http://test.nelsonfassis.com), [dr.nelsonfassis.com](http://dr.nelsonfassis.com), [dev.nelsonfassis.com](http://dev.nelsonfassis.com)
 
 - **GCP Jenkins Server**
-  - FQDN: [jenkins.nelsonfassis.com](http://jenkins.nelsonfassis.com)
+  - FQDN: [jenkins.nelsonfassis.com](http://jenkins.nelsonfassis.com:8080)
 
 
 ## **Challenges**
