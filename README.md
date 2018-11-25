@@ -34,7 +34,7 @@ Most of the tests were firstly made using a local Virtual Machine on my workstat
 - In the third step, it will update the nginx configs for the reverse proxy to pass the requests to the container port defined before building the deployment, so even if you want to deploy that environment to a different port, it will still be accessible from its FQDN.
 - In the fourth and last step, it will stop and remove the previous container (if it existed) and create a new one from the new image uploded to the Docker Hub.
 
-![Pipeline diagram](Jenkins-pipeline-diagram.png)
+![Pipeline diagram](Workflow.png)
 
 
 ## **Reference**
