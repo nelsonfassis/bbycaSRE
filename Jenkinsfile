@@ -42,9 +42,16 @@ pipeline {
           }
         }
 
+        stage('Update Reverse Proxy') {
+            steps {
+                sh "sed -i 's/localhost.*/localhost:$PORT;/g' /usr/local/nginx/sites-enabled/$ENV"
+            }
+        }
+
+
         stage('Start container') {
             steps {
-                sh 'docker stop bestbuy-$ENV || true && docker rm bestbuy-$ENV || true'
+                sh 'docker stop bestbuy-$ENV || true && docker rm -f bestbuy-$ENV || true'
                 sh 'docker run --restart=always -d -e PORT=$PORT -e ENV=$ENV -p $PORT:$PORT --name bestbuy-$ENV $registry:$BUILD_NUMBER '
             }
         }
