@@ -1,4 +1,4 @@
-# **Best Buy Assignment*
+# **Best Buy Assignment**
 
 ## **Goals**
 
